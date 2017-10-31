@@ -1,0 +1,27 @@
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+
+
+    <style name="line">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/x2</item>
+        <item name="android:background">#E1E1E6</item>
+    </style>
+
+    <style name="vLine">
+        <item name="android:layout_width">@dimen/x3</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:background">#E1E1E6</item>
+    </style>
+
+
+    <style name="spaceView">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/padding1</item>
+        <item name="android:background">@color/backgroundColor</item>
+    </style>
+
+    <style name="selectorBg">
+        <item name="android:background">?android:attr/selectableItemBackground</item>
+    </style>
+
+</resources>

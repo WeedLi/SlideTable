@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/height1">
+
+            <TextView
+                android:id="@+id/tvTitle"
+                android:layout_width="@dimen/x240"
+                android:layout_height="match_parent" />
+
+            <View style="@style/vLine" />
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/dateList"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:paddingLeft="@dimen/padding0"
+                android:paddingRight="@dimen/padding0" />
+
+        </LinearLayout>
+
+        <View style="@style/line" />
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/staffList"
+                android:layout_width="@dimen/x240"
+                android:layout_height="match_parent" />
+
+            <View style="@style/vLine" />
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/contentList"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/backgroundColor" />
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+    <com.leo.monthtable.monthtablelibrary.CFlingView
+        android:id="@+id/cFlingView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <FrameLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <View
+                android:id="@+id/surfaceView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+        </FrameLayout>
+
+
+    </com.leo.monthtable.monthtablelibrary.CFlingView>
+
+</FrameLayout>

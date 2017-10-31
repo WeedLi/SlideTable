@@ -1,0 +1,88 @@
+<resources>
+
+
+
+
+    <!--重构样式-->
+    <dimen name="h1">12.67sp</dimen>
+    <dimen name="h2">14.67sp</dimen>
+    <dimen name="h3">16.67sp</dimen>
+    <dimen name="h4">18.67sp</dimen>
+    <dimen name="h5">22sp</dimen>
+
+
+    <dimen name="padding0">8dp</dimen>
+    <dimen name="padding1">14dp</dimen>
+    <dimen name="padding2">24dp</dimen>
+    <dimen name="padding3">36dp</dimen>
+
+    <dimen name="height1">44dp</dimen>
+
+    <dimen name="shiftWH">90dp</dimen>
+    <dimen name="shiftPadding">4.5dp</dimen>
+    <dimen name="shiftTextSize">10.56dp</dimen>
+
+    <dimen name="x1">0.33dp</dimen>
+    <dimen name="x2">0.66dp</dimen>
+    <dimen name="x3">1dp</dimen>
+    <dimen name="x5">1.67dp</dimen>
+    <dimen name="x6">2dp</dimen>
+    <dimen name="x9">3dp</dimen>
+    <dimen name="x12">4dp</dimen>
+    <dimen name="x15">5dp</dimen>
+    <dimen name="x18">6dp</dimen>
+    <dimen name="x21">7dp</dimen>
+    <dimen name="x24">8dp</dimen>
+    <dimen name="x30">10dp</dimen>
+    <dimen name="x36">12dp</dimen>
+    <dimen name="x45">15dp</dimen>
+    <dimen name="x54">18dp</dimen>
+    <dimen name="x60">20dp</dimen>
+    <dimen name="x72">24dp</dimen>
+    <dimen name="x64">21.33dp</dimen>
+    <dimen name="x68">22.67dp</dimen>
+    <dimen name="x84">28dp</dimen>
+    <dimen name="x90">30dp</dimen>
+    <dimen name="x100">33.33dp</dimen>
+    <dimen name="x108">36dp</dimen>
+    <dimen name="x120">40dp</dimen>
+    <dimen name="x127">42.33dp</dimen>
+    <dimen name="x130">43.33dp</dimen>
+    <dimen name="x132">43dp</dimen>
+    <dimen name="x144">46dp</dimen>
+    <dimen name="x150">50dp</dimen>
+    <dimen name="x160">53.33dp</dimen>
+    <dimen name="x165">55dp</dimen>
+    <dimen name="x174">58dp</dimen>
+    <dimen name="x182">60.67dp</dimen>
+    <dimen name="x192">64dp</dimen>
+    <dimen name="x200">66.67dp</dimen>
+    <dimen name="x220">73.33dp</dimen>
+    <dimen name="x230">76.67dp</dimen>
+    <dimen name="x240">80dp</dimen>
+    <dimen name="x264">88dp</dimen>
+    <dimen name="x270">90dp</dimen>
+    <dimen name="x284">94.67dp</dimen>
+    <dimen name="x300">100dp</dimen>
+    <dimen name="x370">123.33dp</dimen>
+    <dimen name="x390">130dp</dimen>
+    <dimen name="x430">143.33dp</dimen>
+    <dimen name="x489">163dp</dimen>
+    <dimen name="x510">170dp</dimen>
+    <dimen name="x530">176.67dp</dimen>
+    <dimen name="x544">181.33dp</dimen>
+    <dimen name="x560">186.67dp</dimen>
+    <dimen name="x576">192dp</dimen>
+    <dimen name="x600">200dp</dimen>
+    <dimen name="x633">211dp</dimen>
+    <dimen name="x666">222dp</dimen>
+    <dimen name="x684">288dp</dimen>
+    <dimen name="x690">230dp</dimen>
+    <dimen name="x750">250dp</dimen>
+    <dimen name="x780">260dp</dimen>
+    <dimen name="x880">293.33dp</dimen>
+    <dimen name="x1050">350dp</dimen>
+
+    <dimen name="x0">0dp</dimen>
+
+</resources>

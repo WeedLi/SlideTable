@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+
+    <TextView
+        style="@style/selectorBg"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/height1"
+        android:layout_gravity="center_horizontal"
+        android:clickable="true"
+        android:gravity="center"
+        android:onClick="changeDate"
+        android:paddingLeft="@dimen/padding1"
+        android:paddingRight="@dimen/padding1"
+        android:text="2017-11-25"
+        android:textSize="@dimen/h3" />
+
+
+    <com.leo.monthtable.monthtablelibrary.CTableView
+        android:id="@+id/cTableView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+
+</LinearLayout>
