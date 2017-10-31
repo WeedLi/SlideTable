@@ -223,7 +223,7 @@ public class CTableView extends LinearLayout {
         LinearLayoutManager layoutManager = (LinearLayoutManager) dateList.getLayoutManager();
         int position = layoutManager.findFirstVisibleItemPosition();
         View firstVisiableChildView = layoutManager.findViewByPosition(position);
-        int itemWidthPadding = itemWidth - padding0 - padding0;
+        int itemWidthPadding = itemWidth + padding0 + padding0+ padding0;
         int distance = itemWidthPadding - Math.abs(firstVisiableChildView.getLeft());
         if (Math.abs(firstVisiableChildView.getLeft()) < itemWidthPadding / 2) {
             return firstVisiableChildView.getLeft() - padding0;

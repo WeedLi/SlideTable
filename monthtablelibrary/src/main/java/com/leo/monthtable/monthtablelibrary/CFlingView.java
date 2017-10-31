@@ -1,10 +1,10 @@
 package com.leo.monthtable.monthtablelibrary;
 
 import android.content.Context;
-import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.VelocityTracker;
 import android.view.View;
@@ -89,12 +89,8 @@ public class CFlingView extends FrameLayout {
 
     @Override
     public void computeScroll() {
-
-
+//        Log.e("LEO666666", "1111111:"+mScroller.computeScrollOffset());
         if (mScroller.computeScrollOffset()) {
-            // This is called at drawing time by ViewGroup.  We use
-            // this method to keep the fling animation going through
-            // to completion.
             int oldX = getScrollX();
             int oldY = getScrollY();
             int x = mScroller.getCurrX();
@@ -105,45 +101,33 @@ public class CFlingView extends FrameLayout {
                 x = clamp(x, getWidth() - getPaddingRight() - getPaddingLeft(), child.getWidth());
                 y = clamp(y, getHeight() - getPaddingBottom() - getPaddingTop(), child.getHeight());
                 if (x != oldX || y != oldY) {
-                    scrollTo(x, y);
-
+//                    scrollTo(x, y);
+                    scrollBy(x - oldX, y - oldY);
                     if (listener != null)
                         listener.onScrollDistance(x - oldX, y - oldY);
+                    Log.e("LEO666666", "1111111");
+
+                    // Keep on drawing until the animation has finished.
+                    postInvalidate();
                 }
             }
-
-            // Keep on drawing until the animation has finished.
-            postInvalidate();
-        } else {
-
         }
-
 
         if (mScroller.isFinished()) {
             // Snap to day after fling is finished.
+            Log.e("LEO666666", "自动归位...");
             goToNearestOrigin();
         }
 
     }
 
-    /**
-     * Check if scrolling should be stopped.
-     *
-     * @return true if scrolling should be stopped before reaching the end of animation.
-     */
-    private boolean forceFinishScroll() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
-            // current velocity only available since api 14
-            return mScroller.getCurrVelocity() <= mMinimumFlingVelocity;
-        } else {
-            return false;
-        }
-    }
-
     private void goToNearestOrigin() {
         int scollXDistance = ctableView.getScollXDistance();
         int scollYDistance = ctableView.getScollYDistance();
+        Log.e("LEO666666", "自动归位...scollXDistance：" + scollXDistance);
+        Log.e("LEO666666", "自动归位...scollYDistance：" + scollYDistance);
         mScroller.startScroll(mScroller.getCurrX(), mScroller.getCurrY(), scollXDistance, scollYDistance, 500);
+        invalidate();
     }
 
     //Override scrollTo to do bounds checks on any scrolling request
@@ -170,9 +154,12 @@ public class CFlingView extends FrameLayout {
             int bottom = getChildAt(0).getHeight();
             int right = getChildAt(0).getWidth();
 
-            mScroller.fling(getScrollX(), getScrollY(), velocityX / 2, velocityY / 2,
+            mScroller.fling(getScrollX(), getScrollY(), velocityX , velocityY ,
                     0, Math.max(0, right - width),
                     0, Math.max(0, bottom - height));
+
+
+            Log.e("LEO666666", "222222222");
 
             invalidate();
         }
