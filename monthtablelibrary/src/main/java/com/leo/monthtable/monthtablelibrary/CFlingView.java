@@ -105,6 +105,7 @@ public class CFlingView extends FrameLayout {
                     scrollBy(x - oldX, y - oldY);
                     if (listener != null)
                         listener.onScrollDistance(x - oldX, y - oldY);
+
                     Log.e("LEO666666", "1111111");
 
                     // Keep on drawing until the animation has finished.
@@ -113,11 +114,11 @@ public class CFlingView extends FrameLayout {
             }
         }
 
-        if (mScroller.isFinished()) {
-            // Snap to day after fling is finished.
-            Log.e("LEO666666", "自动归位...");
-            goToNearestOrigin();
-        }
+//        if (mScroller.isFinished()) {
+//            // Snap to day after fling is finished.
+//            Log.e("LEO666666", "自动归位...");
+//            goToNearestOrigin();
+//        }
 
     }
 
@@ -154,10 +155,9 @@ public class CFlingView extends FrameLayout {
             int bottom = getChildAt(0).getHeight();
             int right = getChildAt(0).getWidth();
 
-            mScroller.fling(getScrollX(), getScrollY(), velocityX , velocityY ,
+            mScroller.fling(getScrollX(), getScrollY(), (int) (velocityX / 2f), (int) (velocityY / 2f),
                     0, Math.max(0, right - width),
                     0, Math.max(0, bottom - height));
-
 
             Log.e("LEO666666", "222222222");
 
@@ -255,6 +255,9 @@ public class CFlingView extends FrameLayout {
                 // We've already stored the initial point,
                 // but if we got here a child view didn't capture
                 // the event, so we need to.
+
+//                goToNearestOrigin();
+
                 return true;
             case MotionEvent.ACTION_MOVE:
                 final float x = event.getX();
@@ -265,6 +268,7 @@ public class CFlingView extends FrameLayout {
                 if (!mDragging && (Math.abs(deltaY) > mTouchSlop || Math.abs(deltaX) > mTouchSlop)) {
                     mDragging = true;
                 }
+
                 if (mDragging) {
                     //Scroll the view
                     scrollBy((int) deltaX, (int) deltaY);
@@ -283,14 +287,16 @@ public class CFlingView extends FrameLayout {
                 }
                 break;
             case MotionEvent.ACTION_UP:
-                mDragging = false;
-                // Compute the current velocity and start a fling if it is above
-                // the minimum threshold.
-                mVelocityTracker.computeCurrentVelocity(1000, mMaximumVelocity);
-                int velocityX = (int) mVelocityTracker.getXVelocity();
-                int velocityY = (int) mVelocityTracker.getYVelocity();
-                if (Math.abs(velocityX) > mMinimumVelocity || Math.abs(velocityY) > mMinimumVelocity) {
-                    fling(-velocityX, -velocityY);
+                if (mDragging) {
+                    mDragging = false;
+                    // Compute the current velocity and start a fling if it is above
+                    // the minimum threshold.
+                    mVelocityTracker.computeCurrentVelocity(1000, mMaximumVelocity);
+                    int velocityX = (int) mVelocityTracker.getXVelocity();
+                    int velocityY = (int) mVelocityTracker.getYVelocity();
+                    if (Math.abs(velocityX) > mMinimumVelocity || Math.abs(velocityY) > mMinimumVelocity) {
+                        fling(-velocityX, -velocityY);
+                    }
                 }
                 break;
         }

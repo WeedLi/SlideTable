@@ -6,9 +6,9 @@ import android.content.Context;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.animation.LinearInterpolator;
 import android.widget.LinearLayout;
 
@@ -67,7 +67,7 @@ public class CTableView extends LinearLayout {
         //默认加载今天的日期
         currDate = DateUtil.getYearAndMonth();
 
-        itemWidth = (int) getDimen(R.dimen.x300);
+        itemWidth = (int) getDimen(R.dimen.x270);
         itemHeight = (int) getDimen(R.dimen.x300);
         padding0 = (int) getDimen(R.dimen.padding0);
 
@@ -75,10 +75,6 @@ public class CTableView extends LinearLayout {
         dateList = findViewById(R.id.dateList);
         staffList = findViewById(R.id.staffList);
         contentList = findViewById(R.id.contentList);
-        cFlingView = findViewById(R.id.cFlingView);
-        surfaceView = findViewById(R.id.surfaceView);
-
-        cFlingView.setCTableView(this);
 
         dateData = new ArrayList<>();
         staffData = new ArrayList<>();
@@ -87,24 +83,79 @@ public class CTableView extends LinearLayout {
         configureStaffList();
         configureContentList();
 
-        ViewGroup.LayoutParams surfaceParams = surfaceView.getLayoutParams();
-        surfaceParams.width = (int) surfaceWidth;
-        surfaceParams.height = (int) surfaceHeight;
-        surfaceView.setLayoutParams(surfaceParams);
+//        configureCFling();
+        configureLeoGeaFling();
+    }
 
-        cFlingView.setOnScrollDistanceListener(new CFlingView.OnScrollDistanceListener() {
+    public int deatalX;
+    public int deatalY;
+
+    private void configureLeoGeaFling() {
+        final LeoGeaFlingView lgf = findViewById(R.id.leo_gea_fling);
+        lgf.setcTableView(this);
+        lgf.setOnCFlingViewScrollListener(new LeoGeaFlingView.OnCFlingViewScrollListener() {
             @Override
-            public void onScrollDistance(int deltaX, int deltaY) {
-                dateList.scrollBy(deltaX, 0);
-                staffList.scrollBy(0, deltaY);
-                contentList.scrollBy(deltaX, deltaY);
+            public void onScroll(int disX, int disY) {
+                Log.e("CTABLE", "onScroll---disX：" + disX);
+                Log.e("CTABLE", "onScroll---disY：" + disY);
+
+                deatalX += disX;
+                deatalY += disY;
+
+                dateList.scrollBy(disX, 0);
+                staffList.scrollBy(0, disY);
+                contentList.scrollBy(disX, disY);
+
+                lgf.mCurrentOrigin.x = deatalX;
+                lgf.mCurrentOrigin.y = deatalY;
+
+            }
+
+            @Override
+            public void onFling(int disX, int disY) {
+
+                Log.e("CTABLE", "onFling---disX：" + disX);
+                Log.e("CTABLE", "onFling---disY：" + disY);
+
+                deatalX += disX;
+                deatalY += disY;
+
+                dateList.scrollBy(disX, 0);
+                staffList.scrollBy(0, disY);
+                contentList.scrollBy(disX, disY);
+
+                lgf.mCurrentOrigin.x = deatalX;
+                lgf.mCurrentOrigin.y = deatalY;
+            }
+
+            @Override
+            public void onStop() {
+
             }
         });
     }
 
+    private void configureCFling() {
+//        cFlingView = findViewById(R.id.cFlingView);
+//        surfaceView = findViewById(R.id.surfaceView);
+//        cFlingView.setCTableView(this);
+//        ViewGroup.LayoutParams surfaceParams = surfaceView.getLayoutParams();
+//        surfaceParams.width = (int) surfaceWidth;
+//        surfaceParams.height = (int) surfaceHeight;
+//        surfaceView.setLayoutParams(surfaceParams);
+//        cFlingView.setOnScrollDistanceListener(new CFlingView.OnScrollDistanceListener() {
+//            @Override
+//            public void onScrollDistance(int deltaX, int deltaY) {
+//                dateList.scrollBy(deltaX, 0);
+//                staffList.scrollBy(0, deltaY);
+//                contentList.scrollBy(deltaX, deltaY);
+//            }
+//        });
+    }
+
     private void configureDateList() {
         int currentMonthDays = getMonthDays();
-        surfaceWidth = getDimen(R.dimen.x240) + padding0 * 2 + (itemHeight + padding0 * 2) * currentMonthDays;
+        surfaceWidth = getDimen(R.dimen.x240) + padding0 * 2 + itemWidth * currentMonthDays;
         dateData.clear();
         for (int i = 0; i < currentMonthDays; i++) {
             int day = i + 1;
@@ -207,30 +258,39 @@ public class CTableView extends LinearLayout {
 
     }
 
+
+    public int getScollXDistance() {
+        LinearLayoutManager layoutManager = (LinearLayoutManager) dateList.getLayoutManager();
+        int position = layoutManager.findFirstVisibleItemPosition();
+        View firstVisiableChildView = layoutManager.findViewByPosition(position);
+
+        int itemWidthPadding = itemWidth;
+
+        Log.e("LEO666666", "getLeft：" + Math.abs(firstVisiableChildView.getLeft()));
+
+        int leftDix = firstVisiableChildView.getLeft() - padding0;
+        if (Math.abs(leftDix) < itemWidthPadding / 2) {
+            return leftDix;
+        } else {
+            int distance = itemWidthPadding - Math.abs(firstVisiableChildView.getLeft()) - padding0;
+            return Math.abs(distance);
+        }
+
+    }
+
     public int getScollYDistance() {
         LinearLayoutManager layoutManager = (LinearLayoutManager) staffList.getLayoutManager();
         int position = layoutManager.findFirstVisibleItemPosition();
         View firstVisiableChildView = layoutManager.findViewByPosition(position);
         int distance = itemHeight - Math.abs(firstVisiableChildView.getTop());
+
+        Log.e("LEO666666", "getTop：" + Math.abs(firstVisiableChildView.getTop()));
+
         if (Math.abs(firstVisiableChildView.getTop()) < itemHeight / 2) {
             return firstVisiableChildView.getTop();
         } else {
             return distance;
         }
     }
-
-    public int getScollXDistance() {
-        LinearLayoutManager layoutManager = (LinearLayoutManager) dateList.getLayoutManager();
-        int position = layoutManager.findFirstVisibleItemPosition();
-        View firstVisiableChildView = layoutManager.findViewByPosition(position);
-        int itemWidthPadding = itemWidth + padding0 + padding0+ padding0;
-        int distance = itemWidthPadding - Math.abs(firstVisiableChildView.getLeft());
-        if (Math.abs(firstVisiableChildView.getLeft()) < itemWidthPadding / 2) {
-            return firstVisiableChildView.getLeft() - padding0;
-        } else {
-            return distance + padding0;
-        }
-    }
-
 
 }
