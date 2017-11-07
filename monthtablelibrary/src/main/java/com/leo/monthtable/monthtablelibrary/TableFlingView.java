@@ -8,13 +8,15 @@ import android.support.v4.view.GestureDetectorCompat;
 import android.support.v4.view.ViewCompat;
 import android.support.v4.view.animation.FastOutLinearInInterpolator;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.GestureDetector;
+import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.ScaleGestureDetector;
+import android.view.View;
 import android.view.ViewConfiguration;
 import android.widget.FrameLayout;
 import android.widget.OverScroller;
+import android.widget.Toast;
 
 
 /**
@@ -23,15 +25,30 @@ import android.widget.OverScroller;
  * 描述：
  */
 
-public class LeoGeaFlingView extends FrameLayout {
+public class TableFlingView extends FrameLayout {
 
-
-    public LeoGeaFlingView(Context context) {
+    public TableFlingView(Context context) {
         this(context, null);
     }
 
-    public LeoGeaFlingView(Context context, @Nullable AttributeSet attrs) {
+    public TableFlingView(final Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
+        LayoutInflater.from(context).inflate(R.layout.view_c_table_fling, this, true);
+
+        findViewById(R.id.tv1).setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(context, "unicorn1", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        findViewById(R.id.tv2).setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(context, "unicorn1", Toast.LENGTH_SHORT).show();
+            }
+        });
+
         mGestureDetector = new GestureDetectorCompat(getContext(), mGestureListener);
         mScroller = new OverScroller(getContext(), new FastOutLinearInInterpolator());
         mMinimumFlingVelocity = ViewConfiguration.get(getContext()).getScaledMinimumFlingVelocity();
@@ -58,13 +75,13 @@ public class LeoGeaFlingView extends FrameLayout {
         });
     }
 
-    private OnCFlingViewScrollListener listener;
+    private OnTableFlingViewScrollListener listener;
 
-    public void setOnCFlingViewScrollListener(OnCFlingViewScrollListener listener) {
+    public void setOnTableFlingViewScrollListener(OnTableFlingViewScrollListener listener) {
         this.listener = listener;
     }
 
-    public interface OnCFlingViewScrollListener {
+    public interface OnTableFlingViewScrollListener {
 
         void onScroll(int disX, int disY);
 
@@ -86,38 +103,56 @@ public class LeoGeaFlingView extends FrameLayout {
         NONE, LEFT, RIGHT, VERTICAL
     }
 
-    private CTableView cTableView;
+    private SlideTableView slideTableView;
 
     private GestureDetectorCompat mGestureDetector;
     private OverScroller mScroller;
     private ScaleGestureDetector mScaleDetector;
     public PointF mCurrentOrigin = new PointF(0f, 0f);
     private float mXScrollingSpeed = 1f;
+    private float mYScrollingSpeed = 1f;
     private boolean mIsZooming;
     private int mScaledTouchSlop = 0;
     private int mMinimumFlingVelocity = 0;
 
-    public void setcTableView(CTableView cTableView) {
-        this.cTableView = cTableView;
+
+    private int locationDuration = 500;//重新定位的时长
+
+    public void setLocationDuration(int locationDuration) {
+        this.locationDuration = locationDuration;
     }
 
-    private final GestureDetector.SimpleOnGestureListener mGestureListener = new GestureDetector.SimpleOnGestureListener() {
+    public void setSlideTableView(SlideTableView slideTableView) {
+        this.slideTableView = slideTableView;
+    }
+
+    private GestureDetector.SimpleOnGestureListener mGestureListener = new GestureDetector.SimpleOnGestureListener() {
+
+        @Override
+        public boolean onSingleTapConfirmed(MotionEvent e) {
+//            return super.onSingleTapConfirmed(e);
+            return true;
+        }
+
+        @Override
+        public boolean onSingleTapUp(MotionEvent e) {
+//            return super.onSingleTapUp(e);
+            return false;
+        }
 
         @Override
         public boolean onDown(MotionEvent e) {
-//            goToNearestOrigin();
+            mScroller.abortAnimation();
             return true;
         }
 
         @Override
         public boolean onScroll(MotionEvent e1, MotionEvent e2, float distanceX, float distanceY) {
-            // Check if view is zoomed.
             if (mIsZooming)
                 return true;
 
             switch (mCurrentScrollDirection) {
                 case NONE: {
-                    // Allow scrolling only in one direction.
                     if (Math.abs(distanceX) > Math.abs(distanceY)) {
                         if (distanceX > 0) {
                             mCurrentScrollDirection = Direction.LEFT;
@@ -130,21 +165,19 @@ public class LeoGeaFlingView extends FrameLayout {
                     break;
                 }
                 case LEFT: {
-                    // Change direction if there was enough change.
                     if (Math.abs(distanceX) > Math.abs(distanceY) && (distanceX < -mScaledTouchSlop)) {
                         mCurrentScrollDirection = Direction.RIGHT;
                     }
                     break;
                 }
                 case RIGHT: {
-                    // Change direction if there was enough change.
                     if (Math.abs(distanceX) > Math.abs(distanceY) && (distanceX > mScaledTouchSlop)) {
                         mCurrentScrollDirection = Direction.LEFT;
                     }
                     break;
                 }
             }
-            // Calculate the new origin after scroll.
+
             switch (mCurrentScrollDirection) {
                 case LEFT:
                 case RIGHT:
@@ -152,22 +185,16 @@ public class LeoGeaFlingView extends FrameLayout {
                     if (listener != null) {
                         listener.onScroll((int) distanceX, 0);
                     }
-                    Log.e("LEO6666666", "滑动...distanceX：" + distanceX);
-
-                    scrollTo((int) mCurrentOrigin.x, (int) mCurrentOrigin.y);
-
-//                    mCurrentOrigin.x -= distanceX * mXScrollingSpeed;
-//                    ViewCompat.postInvalidateOnAnimation(LeoGeaFlingView.this);
+//                    scrollTo((int) mCurrentOrigin.x, (int) mCurrentOrigin.y);
+//                    ViewCompat.postInvalidateOnAnimation(TableFlingView.this);
                     break;
                 case VERTICAL:
                     //TODO SCROLL
                     if (listener != null) {
                         listener.onScroll(0, (int) distanceY);
                     }
-
-                    scrollTo((int) mCurrentOrigin.x, (int) mCurrentOrigin.y);
-//                    mCurrentOrigin.y -= distanceY;
-//                    ViewCompat.postInvalidateOnAnimation(LeoGeaFlingView.this);
+//                    scrollTo((int) mCurrentOrigin.x, (int) mCurrentOrigin.y);
+//                    ViewCompat.postInvalidateOnAnimation(TableFlingView.this);
                     break;
             }
             return true;
@@ -177,15 +204,12 @@ public class LeoGeaFlingView extends FrameLayout {
         public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
             if (mIsZooming)
                 return true;
-
             mScroller.forceFinished(true);
             mCurrentFlingDirection = mCurrentScrollDirection;
             switch (mCurrentFlingDirection) {
                 case LEFT:
                 case RIGHT:
-
 //                    fling(int startX, int startY, int velocityX, int velocityY, int minX, int maxX, int minY, int maxY)
-
                     mScroller.fling((int) mCurrentOrigin.x, (int) mCurrentOrigin.y,
                             -(int) (velocityX * mXScrollingSpeed), 0,
                             Integer.MIN_VALUE, Integer.MAX_VALUE,
@@ -193,30 +217,24 @@ public class LeoGeaFlingView extends FrameLayout {
                     break;
                 case VERTICAL:
                     mScroller.fling((int) mCurrentOrigin.x, (int) mCurrentOrigin.y,
-                            0, -(int) velocityY,
+                            0, -(int) (velocityY * mYScrollingSpeed),
                             Integer.MIN_VALUE, Integer.MAX_VALUE,
                             Integer.MIN_VALUE, Integer.MAX_VALUE);
                     break;
             }
-            ViewCompat.postInvalidateOnAnimation(LeoGeaFlingView.this);
+            ViewCompat.postInvalidateOnAnimation(TableFlingView.this);
             return true;
         }
     };
 
     private void goToNearestOrigin() {
-        int scollXDistance = cTableView.getScollXDistance();
-        int scollYDistance = cTableView.getScollYDistance();
-
-        Log.e("CTABLE", "自动归位...scollXDistance：" + scollXDistance);
-        Log.e("CTABLE", "自动归位...scollYDistance：" + scollYDistance);
-
+        int scollXDistance = slideTableView.getScollXDistance();
+        int scollYDistance = slideTableView.getScollYDistance();
         mScroller.forceFinished(true);
         mScroller.startScroll((int) mCurrentOrigin.x, (int) mCurrentOrigin.y
                 , scollXDistance, scollYDistance,
-                500);
-
-        ViewCompat.postInvalidateOnAnimation(LeoGeaFlingView.this);
-
+                locationDuration);
+        ViewCompat.postInvalidateOnAnimation(TableFlingView.this);
         mCurrentScrollDirection = mCurrentFlingDirection = Direction.NONE;
         if (listener != null)
             listener.onStop();
@@ -226,11 +244,8 @@ public class LeoGeaFlingView extends FrameLayout {
     public boolean onTouchEvent(MotionEvent event) {
         mScaleDetector.onTouchEvent(event);
         boolean val = mGestureDetector.onTouchEvent(event);
-        // Check after call of mGestureDetector, so mCurrentFlingDirection and mCurrentScrollDirection are set.
         if (event.getAction() == MotionEvent.ACTION_UP && !mIsZooming && mCurrentFlingDirection == Direction.NONE) {
-            if (mCurrentScrollDirection == Direction.RIGHT || mCurrentScrollDirection == Direction.LEFT) {
-                goToNearestOrigin();
-            }
+            goToNearestOrigin();
             mCurrentScrollDirection = Direction.NONE;
         }
         return val;
@@ -239,31 +254,18 @@ public class LeoGeaFlingView extends FrameLayout {
     @Override
     public void computeScroll() {
         super.computeScroll();
-
-        Log.e("LEO888", "正在做动画");
-
         if (mScroller.isFinished()) {
             if (mCurrentFlingDirection != Direction.NONE) {
-                // Snap to day after fling is finished.
                 goToNearestOrigin();
             }
         } else {
             if (mCurrentFlingDirection != Direction.NONE && forceFinishScroll()) {
                 goToNearestOrigin();
             } else if (mScroller.computeScrollOffset()) {
-
-                Log.e("CTABLE1", "自动归位...mScroller.getCurrX()：" + mScroller.getCurrX());
-                Log.e("CTABLE1", "自动归位...mCurrentOrigin.x：" + mCurrentOrigin.x);
-                Log.e("CTABLE1", "-----------------------------------------------------------------------");
-//                Log.e("CTABLE1", "自动归位...mScroller.getCurrY()：" + mScroller.getCurrY());
-//                Log.e("CTABLE1", "自动归位...mCurrentOrigin.y：" + mCurrentOrigin.y);
-//                Log.e("CTABLE1", "-----------------------------------------------------------------------");
-
                 if (listener != null) {
                     listener.onFling((int) (mScroller.getCurrX() - mCurrentOrigin.x), (int) (mScroller.getCurrY() - mCurrentOrigin.y));
-//                    listener.onFling(mScroller.getCurrX(), mScroller.getCurrY());
                 }
-                scrollTo(mScroller.getCurrX(), mScroller.getCurrY());
+//                scrollTo(mScroller.getCurrX(), mScroller.getCurrY());
                 ViewCompat.postInvalidateOnAnimation(this);
             }
         }
@@ -281,6 +283,13 @@ public class LeoGeaFlingView extends FrameLayout {
         } else {
             return false;
         }
+    }
+
+    public void flingToSomeColAndRow(int disX, int disY) {
+        mScroller.startScroll((int) mCurrentOrigin.x, (int) mCurrentOrigin.y
+                , disX, disY,
+                Math.max(1000, Math.max(disX / 2, disY / 2)));
+        ViewCompat.postInvalidateOnAnimation(TableFlingView.this);
     }
 
 }

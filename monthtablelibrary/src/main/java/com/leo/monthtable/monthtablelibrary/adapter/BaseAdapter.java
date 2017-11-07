@@ -1,4 +1,4 @@
-package com.leo.monthtable.monthtablelibrary;
+package com.leo.monthtable.monthtablelibrary.adapter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
@@ -31,10 +31,7 @@ public abstract class BaseAdapter<T> extends RecyclerView.Adapter<BaseViewHolder
             throw new NoSuchElementException("适配器布局不能是0!");
         }
         this.mContext = parent.getContext();
-        if (viewType == 0)
-            return new BaseViewHolder(LayoutInflater.from(mContext).inflate(getLayoutId(), parent, false));
-        else
-            return new BaseViewHolder(LayoutInflater.from(mContext).inflate(getEmptyLayoutId(), parent, false));
+        return new BaseViewHolder(LayoutInflater.from(mContext).inflate(getLayoutId(), parent, false));
     }
 
     @Override
@@ -49,11 +46,6 @@ public abstract class BaseAdapter<T> extends RecyclerView.Adapter<BaseViewHolder
 
     @Override
     public void onBindViewHolder(BaseViewHolder holder, int position) {
-        if (mDatas == null || mDatas.isEmpty()) {
-            //显示空的View
-            configureEmptyView(holder, position);
-            return;
-        }
         if (position >= mDatas.size())
             bindViewHolder(holder, position, null);
         else
@@ -63,25 +55,9 @@ public abstract class BaseAdapter<T> extends RecyclerView.Adapter<BaseViewHolder
     @Override
     public int getItemCount() {
         if (mDatas == null || mDatas.isEmpty()) {
-            return 1;
+            return 0;
         }
         return mDatas.size();
-    }
-
-
-    public void setmDatas(List<T> mDatas) {
-        this.mDatas = mDatas;
-        notifyDataSetChanged();
-    }
-
-
-    /**
-     * 空数据页面的布局
-     *
-     * @return
-     */
-    protected int getEmptyLayoutId() {
-        return R.layout.view_empty;
     }
 
 
@@ -100,17 +76,6 @@ public abstract class BaseAdapter<T> extends RecyclerView.Adapter<BaseViewHolder
      * @param t
      */
     protected abstract void bindViewHolder(BaseViewHolder holder, int position, T t);
-
-    /**
-     * 空View的改变
-     *
-     * @param holder
-     * @param position
-     */
-    protected void configureEmptyView(BaseViewHolder holder, int position) {
-
-    }
-
 
     /**
      * 设置点击的监听
@@ -182,28 +147,6 @@ public abstract class BaseAdapter<T> extends RecyclerView.Adapter<BaseViewHolder
      */
     public interface OnMyItemLongClickListener<T> {
         void onItemLongClick(View view, T t, int position);
-    }
-
-
-    /**
-     * 获得Dimens类型的数据
-     *
-     * @param resId
-     * @return
-     */
-    public float getDimen(int resId) {
-        return mContext.getResources().getDimension(resId);
-    }
-
-
-    /**
-     * 获得颜色值
-     *
-     * @param resId
-     * @return
-     */
-    public int getColor(int resId) {
-        return mContext.getResources().getColor(resId);
     }
 
 }

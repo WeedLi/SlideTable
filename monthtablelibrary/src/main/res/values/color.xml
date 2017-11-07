@@ -1,41 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <color name="black">#000000</color>
-    <color name="yellow">#FFFF00</color>
-    <color name="green">#66FF00</color>
-    <color name="red">#FF0000</color>
-    <color name="white">#ffffff</color>
 
-    <!--页面背景颜色-->
-    <color name="alpha_backgroundColor">#44000000</color>
-
-    <!--App主色-->
-    <color name="mainColor">#5E80E5</color>
-    <!--字体主色-->
-    <color name="firstTextColor">#1C1C2F</color>
-    <!--字体副色-->
-    <color name="secondTextColor">#9E9EA8</color>
-    <!--hint颜色-->
-    <color name="hintColor">#C7C7C7</color>
-    <!--警告颜色-->
-    <color name="warningColor">#EF4B4B</color>
-    <!--背景颜色-->
-    <color name="bgColor">#f7f7fb</color>
-
-    <!--页面背景颜色-->
-    <color name="backgroundColor">#f7f7fb</color>
-    <!--提示dialog透明背景颜色-->
-    <color name="TipsBgColor">#88000000</color>
-
-    <!--App主色 点击-->
-    <color name="mainClickColor">#885E80E5</color>
-
-    <color name="CF0EEFF">#F0EEFF</color>
-    <color name="C7ED321">#7ED321</color>
-    <color name="CFF9F00">#FF9F00</color>
-    <color name="CE7FEFF">#E7FEFF</color>
-    <color name="C7169FF">#7169FF</color>
-    <color name="C67A3FF">#67A3FF</color>
 
 </resources>

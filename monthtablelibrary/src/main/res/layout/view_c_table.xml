@@ -8,77 +8,51 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="@dimen/height1">
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
 
-            <TextView
-                android:id="@+id/tvTitle"
-                android:layout_width="@dimen/x240"
+            <View
+                android:id="@+id/first_view"
+                android:layout_width="match_parent"
                 android:layout_height="match_parent" />
 
-            <View style="@style/vLine" />
-
             <android.support.v7.widget.RecyclerView
-                android:id="@+id/dateList"
+                android:id="@+id/recycler_row"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:paddingLeft="@dimen/padding0"
-                android:paddingRight="@dimen/padding0" />
+                android:layout_weight="1" />
 
         </LinearLayout>
 
-        <View style="@style/line" />
-
+        <View
+            android:id="@+id/first_row_divide_line"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#f2f2f2" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
             <android.support.v7.widget.RecyclerView
-                android:id="@+id/staffList"
-                android:layout_width="@dimen/x240"
+                android:id="@+id/recycler_column"
+                android:layout_width="wrap_content"
                 android:layout_height="match_parent" />
 
-            <View style="@style/vLine" />
-
             <android.support.v7.widget.RecyclerView
-                android:id="@+id/contentList"
+                android:id="@+id/recycler_content"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@color/backgroundColor" />
+                android:layout_height="match_parent" />
 
         </LinearLayout>
-
 
     </LinearLayout>
 
-
-    <com.leo.monthtable.monthtablelibrary.LeoGeaFlingView
-        android:id="@+id/leo_gea_fling"
+    <com.leo.monthtable.monthtablelibrary.TableFlingView
+        android:id="@+id/table_fling_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
-
-
-    <!--<com.leo.monthtable.monthtablelibrary.CFlingView
-        android:id="@+id/cFlingView"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <FrameLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
-
-            <View
-                android:id="@+id/surfaceView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-
-        </FrameLayout>
-
-
-    </com.leo.monthtable.monthtablelibrary.CFlingView>-->
 
 </FrameLayout>

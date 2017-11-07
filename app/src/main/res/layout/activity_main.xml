@@ -7,6 +7,7 @@
 
 
     <TextView
+        android:id="@+id/tv_sel_date"
         style="@style/selectorBg"
         android:layout_width="wrap_content"
         android:layout_height="@dimen/height1"
@@ -16,11 +17,11 @@
         android:onClick="changeDate"
         android:paddingLeft="@dimen/padding1"
         android:paddingRight="@dimen/padding1"
-        android:text="2017-11-25"
+        android:text="2017-11"
         android:textSize="@dimen/h3" />
 
 
-    <com.leo.monthtable.monthtablelibrary.CTableView
+    <com.leo.monthtable.monthtablelibrary.SlideTableView
         android:id="@+id/cTableView"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />

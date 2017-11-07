@@ -1,21 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/root"
+    android:id="@+id/root_view"
     android:layout_width="match_parent"
-    android:layout_height="@dimen/x300"
+    android:layout_height="wrap_content"
+    android:gravity="center_horizontal"
     android:orientation="horizontal">
 
-    <View
-        android:layout_width="@dimen/padding0"
-        android:layout_height="match_parent" />
 
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        android:id="@+id/container"
+    <LinearLayout
+        android:id="@+id/container_item"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/x300"
+        android:layout_height="wrap_content"
         android:orientation="horizontal" />
 
-    <View
-        android:layout_width="@dimen/padding0"
-        android:layout_height="match_parent" />
 </LinearLayout>
