@@ -104,7 +104,6 @@ public class TableFlingView extends FrameLayout {
     }
 
     private SlideTableView slideTableView;
-
     private GestureDetectorCompat mGestureDetector;
     private OverScroller mScroller;
     private ScaleGestureDetector mScaleDetector;
@@ -114,8 +113,6 @@ public class TableFlingView extends FrameLayout {
     private boolean mIsZooming;
     private int mScaledTouchSlop = 0;
     private int mMinimumFlingVelocity = 0;
-
-
     private int locationDuration = 500;//重新定位的时长
 
     public void setLocationDuration(int locationDuration) {

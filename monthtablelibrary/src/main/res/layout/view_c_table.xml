@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:splitMotionEvents="false">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -18,7 +19,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" />
 
-            <android.support.v7.widget.RecyclerView
+            <!--<android.support.v7.widget.RecyclerView-->
+            <com.leo.monthtable.monthtablelibrary.OnlyClickRecyclerView
                 android:id="@+id/recycler_row"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
@@ -36,12 +38,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <android.support.v7.widget.RecyclerView
+            <!--<android.support.v7.widget.RecyclerView-->
+            <com.leo.monthtable.monthtablelibrary.OnlyClickRecyclerView
                 android:id="@+id/recycler_column"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent" />
 
-            <android.support.v7.widget.RecyclerView
+            <!--<android.support.v7.widget.RecyclerView-->
+            <com.leo.monthtable.monthtablelibrary.OnlyClickRecyclerView
                 android:id="@+id/recycler_content"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" />
@@ -50,9 +54,9 @@
 
     </LinearLayout>
 
-    <com.leo.monthtable.monthtablelibrary.TableFlingView
-        android:id="@+id/table_fling_view"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+    <!--  <com.leo.monthtable.monthtablelibrary.TableFlingView
+          android:id="@+id/table_fling_view"
+          android:layout_width="match_parent"
+          android:layout_height="match_parent" />-->
 
 </FrameLayout>
