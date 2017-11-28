@@ -1,1 +1,1 @@
-include ':app', ':monthtablelibrary'
+include ':app', ':tablelibrary'

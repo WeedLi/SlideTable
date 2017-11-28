@@ -1,6 +1,7 @@
 package com.leo.monthtable.bean;
 
-import com.leo.monthtable.monthtablelibrary.bean.TableContentBean;
+
+import com.leo.tablelibrary.bean.TableContentBean;
 
 /**
  * 作者：Leo on 2017/11/3 16:25

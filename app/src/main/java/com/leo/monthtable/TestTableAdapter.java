@@ -1,21 +1,21 @@
 package com.leo.monthtable;
 
+import android.app.Activity;
 import android.content.Context;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.leo.monthtable.bean.TestTableContentBean;
 import com.leo.monthtable.bean.TestTableFirstColumn;
 import com.leo.monthtable.bean.TestTableFirstRow;
-import com.leo.monthtable.monthtablelibrary.adapter.BaseViewHolder;
-import com.leo.monthtable.monthtablelibrary.adapter.ITableAdapter;
-import com.leo.monthtable.monthtablelibrary.adapter.LinearLayoutViewHolder;
-import com.leo.monthtable.monthtablelibrary.bean.TableContentBean;
-import com.leo.monthtable.monthtablelibrary.bean.TableFirstColumnBean;
-import com.leo.monthtable.monthtablelibrary.bean.TableFirstRowBean;
 import com.leo.monthtable.utils.DateUtil;
+import com.leo.tablelibrary.adapter.BaseViewHolder;
+import com.leo.tablelibrary.adapter.ITableAdapter;
+import com.leo.tablelibrary.adapter.LinearLayoutViewHolder;
+import com.leo.tablelibrary.bean.TableContentBean;
+import com.leo.tablelibrary.bean.TableFirstColumnBean;
+import com.leo.tablelibrary.bean.TableFirstRowBean;
 
 import java.util.List;
 import java.util.Random;
@@ -168,7 +168,12 @@ public class TestTableAdapter implements ITableAdapter {
         rootView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(mContext, "点击了:" + (String) v.getTag(), Toast.LENGTH_SHORT).show();
+                String tag = (String) v.getTag();
+                String[] split = tag.split(":");
+                TestTableFirstRow tableFirstRowBean = (TestTableFirstRow) fRowBeans.get(Integer.parseInt(split[2]));
+                TestTableFirstColumn tableFirstColumnBean = (TestTableFirstColumn) fColumnBeans.get(Integer.parseInt(split[0]));
+                new InformationPopupWindow((Activity) mContext, tableFirstColumnBean.name
+                        , tableFirstRowBean.date, (String) v.getTag()).showThePopupWindow(v);
             }
         });
     }

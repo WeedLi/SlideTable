@@ -11,11 +11,11 @@ import android.widget.TextView;
 import com.leo.monthtable.bean.TestTableContentBean;
 import com.leo.monthtable.bean.TestTableFirstColumn;
 import com.leo.monthtable.bean.TestTableFirstRow;
-import com.leo.monthtable.monthtablelibrary.SlideTableView;
-import com.leo.monthtable.monthtablelibrary.bean.TableContentBean;
-import com.leo.monthtable.monthtablelibrary.bean.TableFirstColumnBean;
-import com.leo.monthtable.monthtablelibrary.bean.TableFirstRowBean;
 import com.leo.monthtable.utils.DateUtil;
+import com.leo.tablelibrary.SlideTableView;
+import com.leo.tablelibrary.bean.TableContentBean;
+import com.leo.tablelibrary.bean.TableFirstColumnBean;
+import com.leo.tablelibrary.bean.TableFirstRowBean;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -65,6 +65,7 @@ public class MainActivity extends AppCompatActivity {
             testTableContentBean.content = "U";
             list.add(testTableContentBean);
         }
+
         for (int i = 0; i < rows; i++) {
             contentData.add(list);
         }
@@ -73,7 +74,7 @@ public class MainActivity extends AppCompatActivity {
         slideTableView.setTableAdapter(new TestTableAdapter(this, dateData, staffData, contentData));
 //        slideTableView.slideToSomeRow(col);
 //        slideTableView.slideToSomeColumn(col);
-        slideTableView.slideToSomeColAndRow(col,col);
+        slideTableView.slideToSomeColAndRow(col, col);
 
         slideTableView.addFirstView(LayoutInflater.from(this).inflate(R.layout.item_first_view, null, false));
     }

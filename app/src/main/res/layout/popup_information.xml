@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/backgroundColor"
+    android:padding="@dimen/padding1">
+
+    <TextView
+        android:id="@+id/tv_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Leo"
+        android:textColor="@color/firstTextColor"
+        android:textSize="@dimen/h3" />
+
+    <TextView
+        android:id="@+id/tv_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@id/tv_name"
+        android:layout_marginLeft="@dimen/padding1"
+        android:layout_toRightOf="@id/tv_name"
+        android:text="2017-11-28 Fri"
+        android:textColor="@color/secondTextColor"
+        android:textSize="@dimen/h2" />
+
+    <TextView
+        android:id="@+id/tv_content"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_name"
+        android:layout_marginTop="@dimen/padding0"
+        android:text="12:U:9"
+        android:textColor="@color/secondTextColor"
+        android:textSize="@dimen/h4" />
+
+</RelativeLayout>
