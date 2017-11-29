@@ -2,6 +2,7 @@
 
 [![](https://jitpack.io/v/WeedLi/SlideTable.svg)](https://jitpack.io/#WeedLi/SlideTable)
 
+- 支持自定义表格内容
 - 支持上下左右滑动 表格item的点击
 - 支持表格中item的左右边距的调整 支持item自动归位
 - 支持滑动到指定位置
