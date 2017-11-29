@@ -11,7 +11,26 @@
 gif效果图比较大 下载下来看比较好。
 ![image](https://github.com/WeedLi/SlideTable/blob/master/slidetable.gif）
 
+## Setup
 
+To use this library your `minSdkVersion` must be >= 19.
+
+In your project level build.gradle :
+```java
+allprojects {
+    repositories {
+        ...
+        maven { url 'https://jitpack.io' }
+    }
+}       
+```
+
+In your app level build.gradle :
+```java
+dependencies {
+   compile 'com.github.WeedLi:SlideTable:1'
+}      
+```
 
 ## Credits
 
