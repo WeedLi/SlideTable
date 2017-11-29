@@ -1,5 +1,11 @@
 apply plugin: 'com.android.library'
 
+//启用Jitpack 插件
+apply plugin: 'com.github.dcendents.android-maven'
+
+//设置Jitpack发布的Group
+group='com.github.WeedLi'
+
 android {
     compileSdkVersion 26
     buildToolsVersion "26.0.1"
@@ -28,6 +34,5 @@ dependencies {
     })
     compile 'com.android.support:appcompat-v7:26.+'
     testCompile 'junit:junit:4.12'
-
-    compile 'com.android.support:recyclerview-v7:26.+'
 }
+
