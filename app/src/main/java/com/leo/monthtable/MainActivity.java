@@ -20,7 +20,6 @@ import com.leo.tablelibrary.bean.TableFirstRowBean;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.leo.monthtable.R.id.cTableView;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -70,12 +69,11 @@ public class MainActivity extends AppCompatActivity {
             contentData.add(list);
         }
 
-        SlideTableView slideTableView = (SlideTableView) findViewById(cTableView);
+        SlideTableView slideTableView = (SlideTableView) findViewById(R.id.cTableView);
         slideTableView.setTableAdapter(new TestTableAdapter(this, dateData, staffData, contentData));
-//        slideTableView.slideToSomeRow(col);
-//        slideTableView.slideToSomeColumn(col);
+        //滑动到指定位置
         slideTableView.slideToSomeColAndRow(col, col);
-
+        //定义第一个表格
         slideTableView.addFirstView(LayoutInflater.from(this).inflate(R.layout.item_first_view, null, false));
     }
 
